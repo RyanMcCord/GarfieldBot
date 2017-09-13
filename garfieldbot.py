@@ -4,7 +4,49 @@
 import tweepy, time, sys
 from random import randint
 from time import sleep
- 
+
+# custom filters on tweets to choose what tweets to respond to
+def checkForReply(status):
+	if (status.is_quote_status):
+		print("QUOTE")
+		return False
+	if hasattr(status, 'retweeted_status'):
+		print("RETWEET")
+		return False
+	if 'andrew garfield' in status.text.lower():
+		print("ANDREW")
+		return False
+	if 'james garfield' in status.text.lower():
+		print("PREZ")
+		return False
+	if 'james a. garfield' in status.text.lower():
+		print("PREZ")
+		return False
+	if 'garfield st' in status.text.lower():
+		print("STREET")
+		return False
+	if 'garfield street' in status.text.lower():
+		print("STREET")
+		return False
+	return True
+
+# custom listener that builds from the tweepy listener, allowing the Garfield Bot to reply
+class MyStreamListener(tweepy.StreamListener):
+	def on_status(self, status):
+		print(status.text.encode("utf-8"))
+		print(status.user.screen_name)
+		should_bot_reply = checkForReply(status)
+		if (should_bot_reply):
+			print('WE DID IT')
+			rand_quote_index = randint(0, 25)
+			quote = q_f[rand_quote_index]
+			sn = status.user.screen_name
+			message = "@%s " % (sn)
+			message += quote
+			api.update_status(message, status.id)
+
+
+# get the info from our two files
 quote_file = str(sys.argv[1])
 keys_file = str(sys.argv[2])
 
@@ -29,17 +71,7 @@ auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
 
-for tweet in tweepy.Cursor(api.search, q ='Garfield', lang = 'en').items():
-	rand_quote_index = randint(0, 25)
-	quote = q_f[rand_quote_index]
-	
-	try:
-		print(tweet.created_at)
-		# api.update_status(status=quote)
-		# sleep(100)
-	except tweepy.TweepError as e:
-		print(e.reason)
-		sleep(100)
-		continue
-	except StopIteration:
-		break
+# stream tweets in real time to reply to people who tweet about garfield
+myStreamListener = MyStreamListener
+myStream = tweepy.Stream(auth = api.auth, listener=myStreamListener())
+myStream.filter(languages=['en'], track=['Garfield'])
