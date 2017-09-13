@@ -26,8 +26,8 @@ def checkForReply(status):
 # custom listener that builds from the tweepy listener, allowing the Garfield Bot to reply
 class MyStreamListener(tweepy.StreamListener):
 	def on_status(self, status):
-		print(status.text.encode("utf-8"))
-		print(status.user.screen_name)
+		# print(status.text.encode("utf-8"))
+		# print(status.user.screen_name)
 		should_bot_reply = checkForReply(status)
 		if (should_bot_reply):
 			rand_quote_index = randint(0, 25)
