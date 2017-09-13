@@ -8,25 +8,18 @@ from time import sleep
 # custom filters on tweets to choose what tweets to respond to
 def checkForReply(status):
 	if (status.is_quote_status):
-		print("QUOTE")
 		return False
 	if hasattr(status, 'retweeted_status'):
-		print("RETWEET")
 		return False
 	if 'andrew garfield' in status.text.lower():
-		print("ANDREW")
 		return False
 	if 'james garfield' in status.text.lower():
-		print("PREZ")
 		return False
 	if 'james a. garfield' in status.text.lower():
-		print("PREZ")
 		return False
 	if 'garfield st' in status.text.lower():
-		print("STREET")
 		return False
 	if 'garfield street' in status.text.lower():
-		print("STREET")
 		return False
 	return True
 
@@ -37,12 +30,17 @@ class MyStreamListener(tweepy.StreamListener):
 		print(status.user.screen_name)
 		should_bot_reply = checkForReply(status)
 		if (should_bot_reply):
-			print('WE DID IT')
 			rand_quote_index = randint(0, 25)
 			quote = q_f[rand_quote_index]
 			sn = status.user.screen_name
 			message = "@%s " % (sn)
 			message += quote
+			while (len(message) > 140):
+				rand_quote_index = randint(0, 25)
+				quote = q_f[rand_quote_index]
+				sn = status.user.screen_name
+				message = "@%s " % (sn)
+				message += quote
 			api.update_status(message, status.id)
 
 
