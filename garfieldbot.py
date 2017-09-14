@@ -13,6 +13,10 @@ def checkForReply(status):
 		return False
 	if 'andrew garfield' in status.text.lower():
 		return False
+	if 'garfield park' in status.text.lower():
+		return False
+	if 'garfield rd' in status.text.lower():
+		return False
 	if 'james garfield' in status.text.lower():
 		return False
 	if 'james a. garfield' in status.text.lower():
