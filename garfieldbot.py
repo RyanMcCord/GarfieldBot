@@ -13,13 +13,15 @@ def checkForReply(status):
 		return False
 	if 'andrew garfield' in status.text.lower():
 		return False
+	if 'andrewgarfield' in status.text.lower():
+		return False
 	if 'garfield park' in status.text.lower():
 		return False
 	if 'garfield rd' in status.text.lower():
 		return False
 	if 'james garfield' in status.text.lower():
 		return False
-	if 'james a. garfield' in status.text.lower():
+	if 'james a' in status.text.lower():
 		return False
 	if 'garfield st' in status.text.lower():
 		return False
@@ -46,6 +48,7 @@ class MyStreamListener(tweepy.StreamListener):
 				message = "@%s " % (sn)
 				message += quote
 			api.update_status(message, status.id)
+			sleep(30)
 
 
 # get the info from our two files
