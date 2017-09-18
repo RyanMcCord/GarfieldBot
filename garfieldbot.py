@@ -17,8 +17,12 @@ def checkForReply(status):
 		return False
 	if 'garfield park' in status.text.lower():
 		return False
+	if 'garfield middle school' in status.text.lower():
+		return False
 	if 'garfield rd' in status.text.lower():
 		return False
+	if 'garfield ave' in status.text.lower():
+		return False	
 	if 'james garfield' in status.text.lower():
 		return False
 	if 'james a' in status.text.lower():
