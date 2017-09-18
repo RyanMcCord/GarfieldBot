@@ -36,7 +36,7 @@ class MyStreamListener(tweepy.StreamListener):
 		# print(status.user.screen_name)
 		should_bot_reply = checkForReply(status)
 		if (should_bot_reply):
-			rand_quote_index = randint(0, 25)
+			rand_quote_index = randint(0, 57)
 			quote = q_f[rand_quote_index]
 			sn = status.user.screen_name
 			message = "@%s " % (sn)
@@ -48,7 +48,7 @@ class MyStreamListener(tweepy.StreamListener):
 				message = "@%s " % (sn)
 				message += quote
 			api.update_status(message, status.id)
-			sleep(86)
+			sleep(80)
 
 
 # get the info from our two files
