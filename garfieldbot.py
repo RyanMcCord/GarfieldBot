@@ -52,7 +52,7 @@ class MyStreamListener(tweepy.StreamListener):
 				message = "@%s " % (sn)
 				message += quote
 			api.update_status(message, status.id)
-			sleep(80)
+			sleep(84)
 
 
 # get the info from our two files
