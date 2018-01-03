@@ -13,6 +13,8 @@ def checkForReply(status):
 		return False
 	if 'andrew garfield' in status.text.lower():
 		return False
+	if 'larry garfield' in status.text.lower():
+		return False
 	if 'andrewgarfield' in status.text.lower():
 		return False
 	if 'a.garfield' in status.text.lower():
