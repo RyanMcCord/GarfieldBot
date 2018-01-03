@@ -85,10 +85,14 @@ CONSUMER_SECRET = k_f[1].replace('\n', '')
 ACCESS_KEY = k_f[2].replace('\n', '')
 ACCESS_SECRET = k_f[3].replace('\n', '')
 
+print ("Grabbed keys.")
+
 # authorize the bot
 auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_KEY, ACCESS_SECRET)
 api = tweepy.API(auth)
+
+print ("Authorized.")
 
 # stream tweets in real time to reply to people who tweet about garfield
 myStreamListener = MyStreamListener
